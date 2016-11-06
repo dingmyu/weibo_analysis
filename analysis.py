@@ -6,6 +6,7 @@ import jieba.analyse
 from collections import Counter
 import sys
 import time
+import jieba.posseg as pseg
 import keywords_new
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -16,9 +17,11 @@ f = open("YOUR_USER_ID", "r")
 f1 = open("category.txt", "w")
 f2 = open("express.txt", "w")
 f3 = open("word.txt", "w")
+f4 = open("name.txt", "w")
 list1 = []
 record = {}  # 记录命中信息
 express = {}
+name_set = {}
 while True:
     line = f.readline().strip().decode('utf-8')
     if line:
@@ -48,6 +51,10 @@ while True:
         list = jieba.cut(item, cut_all = False)
         for ll in list:
             list1.append(ll)  # 分词
+        seg_list = pseg.cut(item)
+        for word, flag in seg_list:
+            if flag == 'nr':
+                name_set[word] = name_set.get(word, 0) + 1
     else:
         break
 
@@ -61,3 +68,6 @@ for key, keywords in sorted(record.iteritems(), key=lambda d:d[1], reverse = Tru
 
 for key, keywords in sorted(express.iteritems(), key=lambda d:d[1], reverse = True):
     print >> f2, u'使用了', key, u'表情', express[key], u'次'
+
+for key, keywords in sorted(name_set.iteritems(), key=lambda d:d[1], reverse = True):
+    print >>f4, u'使用了名字', key, name_set[key], u'次'
