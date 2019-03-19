@@ -1,7 +1,7 @@
 # weibo_analysis
 python爬虫自动爬取指定用户的原创微博和图片，并对微博进行归类分析，最后以html图表的形式展示。
 
-首先得到你要爬取的user_id和你的cookie，填入到weibo.py中。（获取方法见我的博客园博客）http://www.cnblogs.com/dmyu/ 
+首先得到你要爬取的user_id和你的cookie，填入到weibo.py中。
 
 运行weibo.py，即可生成你要爬取的user_id为名字的原创微博内容文档和存有所有图片链接的文件，之后会对所有图片链接进行爬取，图片存到weibo_image文件夹中。
 
